@@ -1,0 +1,4 @@
+# crontab del usuario inicteladm (crontab -l). Instalar con: crontab usuario/crontab
+# Recarga diaria de WhatsApp Web sin cerrar sesion, hora al azar 10:00-15:00 Lima.
+# Reemplaza al docker restart de bin/reinicio-evolution.sh (pedido de gabriel, 2026-10-15).
+0 10 * * * /home/inicteladm/nawpariy/recargar-whatsapp.sh >> /home/inicteladm/nawpariy/recarga.log 2>&1

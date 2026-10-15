@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# Evaluacion de cumplimiento de planes - Nawpariy CESAL
+0 5 * * * root /usr/bin/curl -sS -m 300 "https://citeapurimac.org/NawapariyProject/api-v3/planes/evaluar?token=TOKEN_CRON" >> /var/log/nawpariy-planes.log 2>&1

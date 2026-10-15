@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# Despacho de anuncios a productores - Nawpariy CESAL
+* * * * * root /usr/bin/curl -sS -m 110 "https://citeapurimac.org/NawapariyProject/api-v3/anuncios/despachar?token=TOKEN_CRON" >> /var/log/nawpariy-anuncios.log 2>&1

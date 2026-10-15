@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# Motor agronomico - Nawpariy CESAL
+2,17,32,47 * * * * root /usr/bin/curl -sS -m 240 "https://citeapurimac.org/NawapariyProject/api-v3/motor/evaluar?token=TOKEN_CRON" >> /var/log/nawpariy-motor.log 2>&1

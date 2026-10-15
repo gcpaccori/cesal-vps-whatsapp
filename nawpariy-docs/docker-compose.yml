@@ -1,0 +1,14 @@
+services:
+  nawpariy-docs:
+    build: .
+    container_name: nawpariy-docs
+    restart: unless-stopped
+    # Solo escucha en loopback: el acceso desde fuera pasa por nginx con HTTPS.
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      DOC_TOKEN: "${DOC_TOKEN}"
+      IDIOMA_OCR: "spa"
+      MAX_PAGINAS_OCR: "25"
+    tmpfs:
+      - /tmp:size=512m

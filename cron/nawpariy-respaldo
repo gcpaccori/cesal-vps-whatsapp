@@ -1,0 +1,2 @@
+# Respalda la sesion de WhatsApp cada madrugada. Ver evolution/respaldar-sesion.sh
+0 3 * * * root /opt/evolution/respaldar-sesion.sh >> /var/log/nawpariy-respaldo.log 2>&1

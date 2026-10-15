@@ -1,0 +1,16 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# Cola de respuestas del agente de WhatsApp - Nawpariy CESAL
+#
+# Cuatro entradas escalonadas para revisar cada 15 s. Cron no baja del minuto,
+# y esperar hasta 60 s a que la pasada siguiente recoja un mensaje ya vencido
+# se sumaba al tiempo de tecleo y la respuesta se sentia lentisima.
+#
+# La espera de tecleo NO se hace aqui: va en programado_para, calculada al
+# encolar. Cada pasada solo envia lo vencido, en menos de 20 s.
+#
+# Reemplazar TOKEN_CRON por el valor de ANUNCIOS_CRON_TOKEN (config/agente.php).
+* * * * * root /usr/bin/curl -sS -m 50 "https://citeapurimac.org/NawapariyProject/api-v3/agente/cola?token=TOKEN_CRON" >> /var/log/nawpariy-agente-cola.log 2>&1
+* * * * * root sleep 15; /usr/bin/curl -sS -m 40 "https://citeapurimac.org/NawapariyProject/api-v3/agente/cola?token=TOKEN_CRON" >> /var/log/nawpariy-agente-cola.log 2>&1
+* * * * * root sleep 30; /usr/bin/curl -sS -m 25 "https://citeapurimac.org/NawapariyProject/api-v3/agente/cola?token=TOKEN_CRON" >> /var/log/nawpariy-agente-cola.log 2>&1
+* * * * * root sleep 45; /usr/bin/curl -sS -m 14 "https://citeapurimac.org/NawapariyProject/api-v3/agente/cola?token=TOKEN_CRON" >> /var/log/nawpariy-agente-cola.log 2>&1

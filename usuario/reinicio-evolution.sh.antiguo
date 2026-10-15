@@ -1,0 +1,10 @@
+#!/bin/bash
+# HISTORICO: estuvo en ~/bin/reinicio-evolution.sh del 2026-10-03 al 2026-10-15.
+# Reiniciaba el contenedor entero (la API caia unos segundos). Lo reemplaza
+# recargar-whatsapp.sh, que solo reconecta la instancia sin cerrar sesion.
+#
+# Reinicio diario de Evolution a una hora al azar del dia (10:00-15:00 Lima),
+# pedido por gabriel (2026-10-03): renueva el socket y la version de WA Web.
+sleep $(( RANDOM * 18000 / 32768 ))
+echo "$(date '+%F %T') reinicio" >> ~/reinicio-evolution.log
+docker restart soporte-prueba-whatsapp-tilapia >> ~/reinicio-evolution.log 2>&1

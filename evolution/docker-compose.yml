@@ -1,0 +1,55 @@
+services:
+  evolution:
+    image: evoapicloud/evolution-api:v2.3.7
+    container_name: soporte-prueba-whatsapp-tilapia
+    restart: always
+    # Solo escucha en localhost: nginx le pone HTTPS por delante,
+    # asi la apikey nunca viaja en claro por internet.
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - evolution_instances:/evolution/instances
+    env_file:
+      - .env
+    networks:
+      - evolution-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: evolution-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: evolution
+    volumes:
+      - evolution_pgdata:/var/lib/postgresql/data
+    networks:
+      - evolution-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evolution"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: evolution-redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - evolution_redis:/data
+    networks:
+      - evolution-net
+
+volumes:
+  evolution_instances:
+  evolution_pgdata:
+  evolution_redis:
+
+networks:
+  evolution-net:
+    driver: bridge
